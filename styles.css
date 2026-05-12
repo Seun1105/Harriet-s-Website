@@ -1609,11 +1609,37 @@ table { border-collapse: collapse; }
 
 /* ── PRINT ───────────────────────────────────────── */
 @media print {
-  .nav, .diag-modal__scrim, .diag-header, .diag-progress,
-  .diag-controls, .diag-results__actions, .footer, .cta-block,
-  .grain { display: none !important; }
-  .diag-modal { position: static; padding: 0; }
-  .diag-modal__box { box-shadow: none; max-height: none; border-top: none; }
+  /* Hide the entire page — only the diagnostic result should print */
+  body > *:not(.diag-modal) { display: none !important; }
+
+  /* Flatten the modal into normal document flow */
+  .diag-modal {
+    display: block !important;
+    position: static !important;
+    padding: 0 !important;
+    background: none !important;
+    overflow: visible !important;
+  }
+  .diag-modal__box {
+    box-shadow: none !important;
+    max-height: none !important;
+    overflow: visible !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 2rem !important;
+  }
+
+  /* Hide modal chrome — only the result content prints */
+  .diag-modal__scrim,
+  .diag-header,
+  .diag-progress,
+  .diag-controls,
+  .diag-results__actions { display: none !important; }
+
+  /* Ensure the results panel is visible */
+  .diag-results,
   .diag-results[hidden] { display: block !important; }
 }
 
